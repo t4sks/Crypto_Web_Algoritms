@@ -1,6 +1,6 @@
 package model
 
-type request struct {
+type Request struct {
 	Algoritm  string `json:"algoritm"`
 	Data      string `json:"data"`
 	Language  string `json:"language"`
@@ -8,9 +8,11 @@ type request struct {
 	Key       int    `json:"key"`
 }
 
-type response struct {
+type Response struct {
+	Result string `json:"result"`
+	Error  error  `json:"error"`
 }
 
-type errorResponse struct {
-	Message string `json:"message"`
+type ErrorResponse struct {
+	Error string `json:"error"`
 }

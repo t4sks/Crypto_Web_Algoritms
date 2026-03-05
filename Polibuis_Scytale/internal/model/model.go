@@ -10,7 +10,7 @@ type Request struct {
 
 type Response struct {
 	Result string `json:"result"`
-	Error  error  `json:"error"`
+	Error  string `json:"error"`
 }
 
 type ErrorResponse struct {

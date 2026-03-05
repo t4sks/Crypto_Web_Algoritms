@@ -8,10 +8,11 @@ import (
 
 var alphabetRusUp = [][]rune{
 	{'А', 'Б', 'В', 'Г', 'Д', 'Е'},
-	{'Ж', 'З', 'И', 'К', 'Л', 'М'},
-	{'Н', 'О', 'П', 'Р', 'С', 'Т'},
-	{'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш'},
-	{'Щ', 'Ы', 'Ь', 'Э', 'Ю', 'Я'},
+	{'Ё', 'Ж', 'З', 'И', 'Й', 'К'},
+	{'Л', 'М', 'Н', 'О', 'П', 'Р'},
+	{'С', 'Т', 'У', 'Ф', 'Х', 'Ц'},
+	{'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь'},
+	{'Э', 'Ю', 'Я', '.', ',', '!'},
 }
 var alphabetEngUP = [][]rune{
 	{'A', 'B', 'C', 'D', 'E'},
@@ -27,12 +28,12 @@ func PolibiusSquareEncode(line string, language string) (string, error) {
 	}
 	line = strings.TrimSpace(line)
 	switch language {
-	case "English":
+	case "english":
 		return englishAlp(line), nil
-	case "Russian":
+	case "russian":
 		return russianAlp(line), nil
 	default:
-		return "", errors.New("unsupported language")
+		return "", errors.New(" unsupported language")
 	}
 	return "", nil
 }
@@ -80,9 +81,9 @@ func PolibiusSquareDecode(line string, language string) (string, error) {
 	}
 	line = strings.TrimSpace(line)
 	switch language {
-	case "English":
+	case "english":
 		return englishAlpDecode(line), nil
-	case "Russian":
+	case "russian":
 		return russianAlpDecode(line), nil
 	default:
 		return "", errors.New("unsupported language")

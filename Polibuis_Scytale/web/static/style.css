@@ -1,0 +1,205 @@
+/* Базовые настройки шрифтов и фона */
+body {
+    background: #f4f4f4;
+    font-family: Helvetica, Arial, sans-serif;
+    color: #1a1a1a;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.wrapper { width: 100%; max-width: 500px; padding: 20px; }
+
+h1 { font-size: 48px; font-weight: 900; margin: 0; letter-spacing: -2px; }
+
+.selector-wrapper { position: relative; margin-top: 10px; }
+
+.hint { font-size: 11px; text-transform: uppercase; font-weight: bold; color: #888; display: block; }
+
+/* Кнопка-заголовок */
+.cipher-selector {
+    font-size: 24px;
+    font-weight: 900;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    border-bottom: 4px solid black;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    transition: color 0.2s;
+}
+
+.cipher-selector:hover { color: #555; }
+
+/* Выпадающее меню */
+.cipher-menu {
+    display: none;
+    position: absolute;
+    background: black;
+    color: white;
+    list-style: none;
+    padding: 10px 0;
+    margin: 5px 0 0 0;
+    z-index: 10;
+    width: 220px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.cipher-menu.show { display: block; }
+
+.cipher-menu li {
+    padding: 12px 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.cipher-menu li:hover { background: #333; }
+
+/* Контейнер ввода */
+.input-group {
+    background: white;
+    padding: 10px;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.cipher-settings {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.cipher-settings input {
+    border: none;
+    border-bottom: 2px solid black;
+    width: 50px;
+    font-weight: 900;
+    outline: none;
+    margin-left: 5px;
+    text-align: center;
+}
+
+textarea {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    resize: none;
+    min-height: 120px;
+    padding: 10px;
+    font-family: inherit;
+}
+
+.main-btn {
+    background: black;
+    color: white;
+    border: none;
+    padding: 18px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.2s;
+}
+
+.main-btn:hover { background: #333; }
+
+.response-container {
+    margin-top: 20px;
+    padding: 15px;
+    background: #fff;
+    border: 2px solid black;
+    display: none; /* Скрыто до первого выполнения */
+}
+
+pre#output-text {
+    white-space: pre-wrap;
+    word-break: break-all;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+}
+
+/* Стили для селекторов и инпутов внутри настроек */
+.cipher-settings select,
+.cipher-settings input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 15px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background: #fafafa;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.cipher-settings select:focus,
+.cipher-settings input:focus {
+    border-color: #000;
+}
+
+.cipher-settings .hint {
+    margin-top: 10px;
+    color: #666;
+    letter-spacing: 0.5px;
+}
+
+/* Контейнер для динамических настроек */
+.cipher-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.setting-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Стилизация динамических полей в стиле "Private" */
+.dynamic-input, .dynamic-select {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #000;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px 0;
+    outline: none;
+    text-transform: uppercase;
+}
+
+.dynamic-select {
+    cursor: pointer;
+    border-radius: 0;
+}
+
+/* Блок результата */
+.response-container {
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+pre#output-text {
+    background: #f9f9f9;
+    padding: 15px;
+    border-left: 4px solid #000;
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre-wrap;
+    word-break: break-all;
+    margin-top: 10px;
+}

@@ -1,4 +1,3 @@
-// только http
 package handler
 
 import (
@@ -25,8 +24,8 @@ func ScytaleHandler(w http.ResponseWriter, r *http.Request) {
 		writeError(w, "Invalid json", http.StatusBadRequest)
 		return
 	}
-	if req.Key <= 0 {
-		writeError(w, "Invalid key", http.StatusBadRequest)
+	if req.Key <= 0 || req.Key >= len(req.Text) {
+		writeError(w, "Invalid key, Or length of message", http.StatusBadRequest)
 		return
 	}
 

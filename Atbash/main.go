@@ -38,6 +38,8 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 func atbash(text string) string {
 	alphabet := []rune("абвгдеёжзийклмнопрстуфхцчшщъыьэюя")
 	alphabetUpper := []rune("АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ")
+	engAlphabet := []rune("abcdefghijklmnopqrstuvwxyz")
+	engAlphabetUp := []rune("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
 	chars := []rune(text)
 	result := []rune{}
@@ -56,6 +58,24 @@ func atbash(text string) string {
 			for i, r := range alphabetUpper {
 				if char == r {
 					result = append(result, alphabetUpper[len(alphabetUpper)-i-1])
+					found = true
+					break
+				}
+			}
+		}
+		if !found {
+			for i, r := range engAlphabet {
+				if char == r {
+					result = append(result, engAlphabet[len(engAlphabet)-i-1])
+					found = true
+					break
+				}
+			}
+		}
+		if !found {
+			for i, r := range engAlphabetUp {
+				if char == r {
+					result = append(result, engAlphabetUp[len(engAlphabetUp)-i-1])
 					found = true
 					break
 				}

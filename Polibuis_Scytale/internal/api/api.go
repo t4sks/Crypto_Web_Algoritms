@@ -7,9 +7,10 @@ import (
 	"errors"
 	"net/http"
 	"strings"
+	"unicode/utf8"
 )
 
-func apiHandler(w http.ResponseWriter, r *http.Request) {
+func ApiHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
 		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
 		return
@@ -42,13 +43,13 @@ func apiHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(model.Response{Result: result, Error: err})
+	json.NewEncoder(w).Encode(model.Response{Result: result})
 }
 
 func scytale(requst model.Request) (string, error) {
 	var resultScytale string
 	var errScytale error
-	if requst.Key < 0 && len(requst.Data) > requst.Key {
+	if requst.Key <= 0 || utf8.RuneCountInString(requst.Data) < requst.Key {
 		return "", errors.New("invalid key, key must shorter than lenght of Data")
 	}
 	switch requst.Operation {

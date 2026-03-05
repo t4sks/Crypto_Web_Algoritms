@@ -1,5 +1,3 @@
-// Запуск приложения
-// Дописать DecryptHandler /api/decrypt
 package main
 
 import (
@@ -19,5 +17,5 @@ func main() {
 		tmpl.Execute(w, nil)
 	})
 	http.HandleFunc("/api/scytale", handler.ScytaleHandler)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8081", nil)
 }

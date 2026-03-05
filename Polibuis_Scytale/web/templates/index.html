@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cipher Machine</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="header-container">
+        <h1>Private.</h1>
+        <div class="selector-wrapper">
+            <span class="hint">Method:</span>
+            <button class="cipher-selector" id="current-cipher">Skitala</button>
+
+            <ul class="cipher-menu" id="cipher-menu">
+                <li data-value="skitala">Skitala</li>
+                <li data-value="polybius">Polybius Square</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="input-group">
+        <div id="dynamic-setting" class="cipher-setting"></div>
+
+        <textarea id="user-input" placeholder="Write something secret..."></textarea>
+        <button class="main-btn" id="encrypt-btn">Encrypt now</button>
+        <div id ="response-area" class="response-container">
+            <span id="response-message" class="response-container">Result:</span>
+            <pre id="output-text"></pre>
+        </div>
+    </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

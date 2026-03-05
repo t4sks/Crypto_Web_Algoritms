@@ -1,4 +1,3 @@
-// только шифрование
 package cipher
 
 import (
@@ -6,16 +5,16 @@ import (
 )
 
 var (
-	ErrInvalidKey     = errors.New("Ключ m должен быть больше 0")
+	ErrInvalidKey     = errors.New("Ключ m должен быть больше 0 и меньше длины сообщения")
 	ErrInvalidMessage = errors.New("Сообщение слишком короткое")
 )
 
 func Scytale(line string, m int) (string, error) {
-	if m <= 0 {
-		return "", ErrInvalidKey
-	}
 	arrayOfline := []rune(line)
 	k := len(arrayOfline)
+	if m <= 0 || m >= k {
+		return "", ErrInvalidKey
+	}
 	if k == 0 {
 		return "", ErrInvalidMessage
 	}

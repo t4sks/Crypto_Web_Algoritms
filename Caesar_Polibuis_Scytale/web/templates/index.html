@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="header-container">
+        <h1>Private.</h1>
+
+        <div class="selector-wrapper dropdown">
+            <span class="hint">Метод:</span>
+
+            <button
+                    class="dropdown-trigger cipher-selector"
+                    id="current-cipher"
+                    type="button"
+                    data-api-name="Scytale"
+            >
+                Scytale
+            </button>
+
+            <ul class="dropdown-menu" id="cipher-menu">
+                <li class="dropdown-item" data-value="scytale">Scytale</li>
+                <li class="dropdown-item" data-value="polybius">Polybius Square</li>
+                <li class="dropdown-item" data-value="caesar">Caesar</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="input-group">
+        <div id="dynamic-setting" class="cipher-settings"></div>
+
+        <textarea id="user-input" placeholder="Введите текст..."></textarea>
+
+        <button class="main-btn" id="encrypt-btn" type="button">Зашифровать</button>
+
+        <div id="response-area" class="response-container">
+            <span id="response-message">Результат:</span>
+            <pre id="output-text"></pre>
+            <div id="request-id" class="request-id"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/app.js?v=3"></script>
+</body>
+</html>

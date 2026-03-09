@@ -107,6 +107,6 @@ async function handleExecution() {
         }
     } catch (err) {
         outputField.style.color = "#ff4444";
-        outputField.textContent = "Error" + err.message;
+        outputField.textContent = "Error " + err.message;
     }
 }

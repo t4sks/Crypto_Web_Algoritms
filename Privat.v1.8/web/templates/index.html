@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<div class="wrapper">
+    <div class="header-container">
+        <h1>Private.</h1>
+
+        <div class="selector-wrapper">
+            <span class="hint">Тип работы:</span>
+
+            <div class="mode-switch" id="mode-switch" data-mode="text">
+                <div class="mode-switch-thumb"></div>
+
+                <button
+                        type="button"
+                        class="mode-switch-btn active"
+                        id="mode-text-btn"
+                        data-mode="text"
+                >
+                    Текст
+                </button>
+
+                <button
+                        type="button"
+                        class="mode-switch-btn"
+                        id="mode-file-btn"
+                        data-mode="file"
+                >
+                    Файл
+                </button>
+            </div>
+        </div>
+
+        <div class="selector-wrapper dropdown">
+            <span class="hint">Алгоритм:</span>
+
+            <button
+                    class="dropdown-trigger cipher-selector"
+                    id="current-cipher"
+                    type="button"
+                    data-api-name="Scytale"
+            >
+                Scytale
+            </button>
+
+            <ul class="dropdown-menu" id="cipher-menu">
+                <li class="dropdown-item" data-value="scytale">Scytale</li>
+                <li class="dropdown-item" data-value="polybius">Polybius Square</li>
+                <li class="dropdown-item" data-value="caesar">Caesar</li>
+                <li class="dropdown-item" data-value="cardano">Cardano Grille</li>
+                <li class="dropdown-item" data-value="gronsfeld">Gronsfeld</li>
+            </ul>
+        </div>
+
+
+
+    </div>
+
+    <div class="input-group">
+        <div id="dynamic-setting" class="cipher-settings"></div>
+
+        <div id="mode-panels" class="mode-panels" data-mode="text">
+            <div id="text-panel" class="mode-panel">
+                <textarea id="user-input" placeholder="Введите текст..."></textarea>
+            </div>
+
+            <div id="file-panel" class="mode-panel is-hidden">
+                <div class="file-upload-block">
+                    <label for="source-file" class="hint">Файл</label>
+
+                    <label class="file-dropzone" for="source-file" id="file-dropzone">
+                        <span class="file-dropzone-title">Выбери текстовый файл</span>
+                        <span class="file-dropzone-subtitle">Поддерживается .txt</span>
+                    </label>
+
+                    <input
+                            id="source-file"
+                            class="file-input-hidden"
+                            type="file"
+                            accept=".txt"
+                    >
+
+                    <div class="file-meta-grid">
+                        <div class="meta-card">
+                            <span class="hint">Имя</span>
+                            <div id="file-name" class="meta-value">—</div>
+                        </div>
+
+                        <div class="meta-card">
+                            <span class="hint">Размер</span>
+                            <div id="file-size" class="meta-value">—</div>
+                        </div>
+
+                        <div class="meta-card">
+                            <span class="hint">Статус</span>
+                            <div id="file-status" class="meta-value">Файл не выбран</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview-block">
+                    <span class="hint">Предпросмотр</span>
+                    <pre id="file-preview" class="preview-box">Здесь появится содержимое файла.</pre>
+                </div>
+
+                <div class="file-actions">
+                    <a
+                            class="secondary-btn is-disabled"
+                            id="download-result-btn"
+                            href="#"
+                            download="result.txt"
+                            aria-disabled="true"
+                    >
+                        Скачать результат
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <button class="main-btn" id="encrypt-btn" type="button">Зашифровать</button>
+
+        <div id="response-area" class="response-container is-hidden">
+            <span id="response-message">Результат:</span>
+            <pre id="output-text"></pre>
+
+            <div id="cardano-code-wrap" class="result-extra is-hidden">
+                <span class="hint">Код решётки:</span>
+                <pre id="cardano-code-output" class="extra-output"></pre>
+            </div>
+
+            <div class="response-meta">
+                <div id="response-status" class="request-id"></div>
+                <div id="request-id" class="request-id"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/js/cipher-config.js"></script>
+<script src="/static/js/mode-switch.js"></script>
+<script src="/static/js/ui.js"></script>
+<script src="/static/js/request.js"></script>
+<script src="/static/js/file-request.js"></script>
+<script src="/static/js/app.js"></script>
+</body>
+</html>

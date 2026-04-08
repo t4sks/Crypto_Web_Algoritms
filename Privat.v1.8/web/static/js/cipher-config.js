@@ -114,6 +114,26 @@ window.configs = {
             </div>
             <input type="hidden" id="cipher-op" value="encrypt">
         </div>
+    `,
+    vigenere: `
+    <div class="setting-item">
+            <span class="hint">Ключ:</span>
+            <input type="text" id="cipher-key" class="dynamic-input">
+        </div>
+
+        <div class="setting-item">
+            <span class="hint">Операция:</span>
+            <div class="dropdown" data-dropdown>
+                <button type="button" class="dropdown-trigger" data-target="cipher-op" data-value="encrypt">
+                    Зашифровать
+                </button>
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item" data-value="encrypt">Зашифровать</li>
+                    <li class="dropdown-item" data-value="decrypt">Расшифровать</li>
+                </ul>
+            </div>
+            <input type="hidden" id="cipher-op" value="encrypt">
+        </div>
     `
 };
 
@@ -123,4 +143,5 @@ window.apiNames = {
     caesar: 'Caesar',
     cardano: 'Cardano',
     gronsfeld: 'Gronsfeld',
+    vigenere: 'Vigenere'
 };

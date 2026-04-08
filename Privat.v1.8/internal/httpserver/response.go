@@ -24,3 +24,13 @@ func writeError(w http.ResponseWriter, r *http.Request, msg string, code int) {
 		RequestId: middleware.GetRequestID(r.Context()),
 	})
 }
+
+func writeFileSuccess(w http.ResponseWriter, r *http.Request, result string, code string, ID string) {
+	w.Header().Set("Content-Type", "application/json; charset=utf-8")
+	_ = json.NewEncoder(w).Encode(model.SuccessResponse{
+		Result:      result,
+		RequestId:   middleware.GetRequestID(r.Context()),
+		CardanoCode: code,
+		DownloadURL: "/api/file/download/" + ID,
+	})
+}

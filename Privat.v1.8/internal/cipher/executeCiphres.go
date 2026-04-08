@@ -100,3 +100,25 @@ func ExecuteGronsfeld(request model.Request) (string, error) {
 		return "", errors.New("Invalid operation")
 	}
 }
+
+func ExecuteVigener(request model.Request) (string, error) {
+	if len(request.KeyString) <= 0 {
+		return "", errors.New("invalid key, key must be longer than 0")
+	}
+	switch strings.ToLower(strings.TrimSpace(request.Operation)) {
+	case "encrypt":
+		result, err := VigenereEncrypt(request.KeyString, request.Data)
+		if err != "" {
+			return "", errors.New(err)
+		}
+		return result, nil
+	case "decrypt":
+		result, err := VigenereDecrypt(request.KeyString, request.Data)
+		if err != "" {
+			return "", errors.New(err)
+		}
+		return result, nil
+	default:
+		return "", errors.New("Invalid operation")
+	}
+}

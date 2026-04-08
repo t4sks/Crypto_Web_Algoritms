@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const mode = window.getCurrentWorkMode();
 
         if (mode === 'file') {
-            await window.handlerFileExecution();
+            await window.handleFileExecution();
             return;
         }
 

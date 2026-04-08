@@ -53,6 +53,9 @@ func executeCipher(request model.Request) (string, error, string) {
 	case "gronsfeld":
 		result, err := cipher.ExecuteGronsfeld(request)
 		return result, err, ""
+	case "vigenere":
+		result, err := cipher.ExecuteVigener(request)
+		return result, err, ""
 	default:
 		return "", errors.New("Invalid algorithm"), ""
 	}

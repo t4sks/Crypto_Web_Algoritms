@@ -11,13 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewField = document.getElementById('file-preview');
     const downloadBtn = document.getElementById('download-result-btn');
 
-    if (!fileInput || !fileDropzone) {
+    if (!fileInput || !fileDropzone || !downloadBtn) {
         return;
     }
 
     let currentFile = null;
     let currentPreviewText = '';
-    let lastBlobUrl = '';
 
     function safeText(value) {
         return String(value || '');
@@ -74,32 +73,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function clearDownloadLink() {
-        if (lastBlobUrl) {
-            URL.revokeObjectURL(lastBlobUrl);
-            lastBlobUrl = '';
-        }
-
         downloadBtn.href = '#';
-        downloadBtn.download = 'result.txt';
+        downloadBtn.removeAttribute('download');
         downloadBtn.classList.add('is-disabled');
         downloadBtn.setAttribute('aria-disabled', 'true');
     }
 
-    function buildDownloadName(originalName) {
-        const cleanName = String(originalName || 'result.txt').replace(/[^\w.\-а-яА-ЯёЁ]/g, '_');
-        const dotIndex = cleanName.lastIndexOf('.');
-        const baseName = dotIndex > 0 ? cleanName.slice(0, dotIndex) : cleanName;
-        return `${baseName}_result.txt`;
-    }
+    function setupDownloadLink(downloadUrl) {
+        if (!downloadUrl) {
+            clearDownloadLink();
+            return;
+        }
 
-    function setupDownloadLink(text, filename) {
-        clearDownloadLink();
-
-        const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
-        lastBlobUrl = URL.createObjectURL(blob);
-
-        downloadBtn.href = lastBlobUrl;
-        downloadBtn.download = filename;
+        downloadBtn.href = downloadUrl;
+        downloadBtn.removeAttribute('download');
         downloadBtn.classList.remove('is-disabled');
         downloadBtn.setAttribute('aria-disabled', 'false');
     }
@@ -134,6 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
         statusField.textContent = '';
         codeWrap.classList.add('is-hidden');
         codeOutput.textContent = '';
+
+        clearDownloadLink();
     }
 
     function handleFileSelection(file) {
@@ -166,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentPreviewText = '';
             previewField.textContent = 'Не удалось прочитать файл.';
             fileStatusField.textContent = 'Ошибка чтения';
+            clearDownloadLink();
         };
 
         reader.readAsText(file);
@@ -173,11 +163,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function buildFileFormData() {
         const currentCipher = document.getElementById('current-cipher');
-        const cipherKey = currentCipher.dataset.cipherKey || '';
+        const cipherKey = currentCipher?.dataset?.cipherKey || '';
         const formData = new FormData();
 
         formData.append('file', currentFile);
-        formData.append('algorithm', currentCipher.dataset.apiName || '');
+        formData.append('algorithm', currentCipher?.dataset?.apiName || '');
         formData.append('language', document.getElementById('cipher-lang')?.value || '');
         formData.append('operation', document.getElementById('cipher-op')?.value || 'encrypt');
 
@@ -185,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
             formData.append('code', (document.getElementById('cardano-code')?.value || '').trim());
         }
 
-        if (cipherKey === 'gronsfeld') {
+        if (cipherKey === 'gronsfeld' || cipherKey === 'vigenere') {
             formData.append('keyString', (document.getElementById('cipher-key')?.value || '').trim());
         } else {
             formData.append('key', String(parseInt(document.getElementById('cipher-key')?.value, 10) || 0));
@@ -204,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const codeOutput = document.getElementById('cardano-code-output');
         const actionBtn = document.getElementById('encrypt-btn');
         const currentCipher = document.getElementById('current-cipher');
-        const cipherKey = currentCipher.dataset.cipherKey || '';
+        const cipherKey = currentCipher?.dataset?.cipherKey || '';
 
         if (!currentFile) {
             showError('Сначала выбери файл');
@@ -221,6 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
         codeOutput.textContent = '';
         actionBtn.disabled = true;
         fileStatusField.textContent = 'Идёт обработка';
+        clearDownloadLink();
 
         const formData = buildFileFormData();
 
@@ -259,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 codeOutput.textContent = result.cardano_code;
             }
 
-            setupDownloadLink(result.result || '', buildDownloadName(currentFile.name));
+            setupDownloadLink(result.download_url || '');
         } catch (err) {
             responseMessage.textContent = 'Ошибка:';
             outputField.classList.add('text-error');
@@ -267,6 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
             codeWrap.classList.add('is-hidden');
             codeOutput.textContent = '';
             fileStatusField.textContent = 'Ошибка обработки';
+            clearDownloadLink();
         } finally {
             actionBtn.disabled = false;
         }
@@ -302,6 +294,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         fileInput.files = e.dataTransfer.files;
         handleFileSelection(file);
+    });
+
+    downloadBtn.addEventListener('click', (e) => {
+        if (downloadBtn.getAttribute('aria-disabled') === 'true') {
+            e.preventDefault();
+        }
     });
 
     resetFileState();

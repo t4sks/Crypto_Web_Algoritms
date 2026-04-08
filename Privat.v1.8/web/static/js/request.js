@@ -13,7 +13,7 @@ window.buildRequestData = function () {
         base.code = (document.getElementById('cardano-code')?.value || '').trim();
     }
 
-    if (cipherKey === 'gronsfeld') {
+    if (cipherKey === 'gronsfeld'|| cipherKey === 'vigenere') {
         base.keyString = (document.getElementById('cipher-key')?.value || '').trim();
     } else {
         base.key = parseInt(document.getElementById('cipher-key')?.value, 10) || 0;

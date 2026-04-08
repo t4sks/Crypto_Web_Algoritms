@@ -26,6 +26,8 @@ func New() *http.Server {
 func registerRoutes(mux *http.ServeMux) {
 	mux.HandleFunc("/", handlePage)
 	mux.HandleFunc("/api", handleApi)
+	mux.HandleFunc("/api/file/process", handleFileProcess)
+	mux.HandleFunc("/api/file/download/", handleFileSave)
 	mux.Handle(
 		"/static/",
 		cacheControlStatic(
